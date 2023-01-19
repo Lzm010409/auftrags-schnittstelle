@@ -5,13 +5,8 @@ import constants.DocumentType;
 import xmlEntities.Case;
 import xmlEntities.ClaimnetDistribution;
 import xmlEntities.Document;
-import xmlEntities.caseData.Admin_Data;
-import xmlEntities.caseData.Attachment;
-import xmlEntities.caseData.ClaimnetInfo;
-import xmlEntities.caseData.Vehicle;
-import xmlEntities.caseData.participantData.Address;
-import xmlEntities.caseData.participantData.Contact;
-import xmlEntities.caseData.participantData.Participant;
+import xmlEntities.caseData.*;
+import xmlEntities.caseData.participantData.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -61,7 +56,9 @@ public class App
             Contact contact = new Contact(ContactType.MOBILE,"+4915751405748");
             List<Contact>contacts = new ArrayList<Contact>();
             contacts.add(contact);
-            address.setContacts(contacts);
+            Contacts contacts1 = new Contacts();
+            contacts1.setContact(contacts);
+            address.setContacts(contacts1);
             p1.setAddress(address);
 
             participantList.add(p1);
@@ -72,11 +69,20 @@ public class App
             attachment.setFile_extension(".pdf");
             attachment.setDocument_type(DocumentType.MAIN_DOCUMENT);
 
-            List<Attachment>attachments = new ArrayList<Attachment>();
-            attachments.add(
-                    attachment
-            );
+            Attachment attachment1 = new Attachment();
+            attachment1.setBase64("TEHFDHGGJHGHJGKJFFH;HK");
+            attachment1.setFilename("TESTFILE");
+            attachment1.setFile_extension(".pdf");
+            attachment1.setDocument_type(DocumentType.MAIN_DOCUMENT);
 
+            List<Attachment> attachments = new ArrayList<>();
+            attachments.add(attachment1);
+            attachments.add(attachment);
+
+            Attachments attachments1 = new Attachments();
+            attachments1.setAttachment(attachments);
+            Participants participants = new Participants();
+            participants.setParticipant(participantList);
             ClaimnetInfo claimnetInfo = new ClaimnetInfo();
             claimnetInfo.setComment("TESTEDFG");
             claimnetInfo.setOrder_type("Gutachten");
@@ -87,8 +93,8 @@ public class App
             claimnetDistribution.setSender_id("LukeGollenstede");
 
             c1.setAdmin_data(admin_data);
-            c1.setAttachments(attachments);
-            c1.setParticipants(participantList);
+            c1.setAttachments(attachments1);
+            c1.setParticipants(participants);
             c1.setVehicle(vehicle);
             c1.setClaimnetInfo(claimnetInfo);
 

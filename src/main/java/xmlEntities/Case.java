@@ -1,7 +1,9 @@
 package xmlEntities;
 
 import xmlEntities.caseData.*;
+import xmlEntities.caseData.Attachments;
 import xmlEntities.caseData.participantData.Participant;
+import xmlEntities.caseData.participantData.Participants;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,15 +14,15 @@ public class Case {
     private Vehicle vehicle;
     private Admin_Data admin_data;
    // private Calculation calculation;
-    private List<Participant> participants;
-    private List<Attachment> attachments;
+    private Participants participants;
+    private Attachments attachments;
     private ClaimnetInfo claimnetInfo;
 
     public Case(){
 
     }
 
-    public Case(Vehicle vehicle, Admin_Data admin_data, List<Participant> participants, List<Attachment> attachments, ClaimnetInfo claimnetInfo) {
+    public Case(Vehicle vehicle, Admin_Data admin_data, Participants participants, Attachments attachments, ClaimnetInfo claimnetInfo) {
         this.vehicle = vehicle;
         this.admin_data = admin_data;
        // this.calculation = calculation;
@@ -55,22 +57,20 @@ public class Case {
     public void setCalculation(Calculation calculation) {
         this.calculation = calculation;
     }*/
-
-    @XmlElement
-    public List<Participant> getParticipants() {
+   @XmlElement
+    public Participants getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Participant> participants) {
+    public void setParticipants(Participants participants) {
         this.participants = participants;
     }
-
     @XmlElement
-    public List<Attachment> getAttachments() {
+    public Attachments getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(List<Attachment> attachments) {
+    public void setAttachments(Attachments attachments) {
         this.attachments = attachments;
     }
 

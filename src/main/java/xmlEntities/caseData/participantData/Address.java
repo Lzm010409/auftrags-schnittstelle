@@ -12,13 +12,13 @@ public class Address {
     private String postalcode;
     private String city;
     private Country country;
-    private List<Contact> contacts;
+    private Contacts contacts;
 
     public Address(){
 
     }
 
-    public Address(String street, String number, String postalcode, String city, Country country, List<Contact> contacts) {
+    public Address(String street, String number, String postalcode, String city, Country country, Contacts contacts) {
         this.street = street;
         this.number = number;
         this.postalcode = postalcode;
@@ -67,11 +67,11 @@ public class Address {
         this.country = country;
     }
     @XmlElement
-    public List<Contact> getContacts() {
+    public Contacts getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<Contact> contacts) {
+    public void setContacts(Contacts contacts) {
         this.contacts = contacts;
     }
 }

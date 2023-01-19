@@ -39,7 +39,7 @@ public class Document {
     public void setClaimnetDistribution(ClaimnetDistribution claimnetDistribution) {
         this.claimnetDistribution = claimnetDistribution;
     }
-    @XmlElement
+    @XmlElement(name = "case")
     public Case getFall() {
         return fall;
     }

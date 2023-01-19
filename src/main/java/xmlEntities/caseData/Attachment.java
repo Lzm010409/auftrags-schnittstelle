@@ -5,7 +5,7 @@ import constants.DocumentType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name="attachment")
 public class Attachment {
 
     private String base64;
