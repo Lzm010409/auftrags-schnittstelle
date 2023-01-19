@@ -1,2 +1,4 @@
-package xmlEntities;public class Calculation {
+package xmlEntities.caseData;
+
+public class Calculation {
 }

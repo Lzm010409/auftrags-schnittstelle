@@ -1,14 +1,17 @@
 package constants;
 
-public enum CountryCode {
+public enum ContactType {
 
-    DE("DE"),
-    FR("fr");
+    PHONE("phone"),
+    MAIL("mail"),
+    URL("url"),
+    FAX("fax"),
+    MOBILE("mobile");
 
-String code;
+String type;
 
-    CountryCode(String code){
-        this.code=code;
+    ContactType(String type){
+        this.type=type;
     }
 
 }

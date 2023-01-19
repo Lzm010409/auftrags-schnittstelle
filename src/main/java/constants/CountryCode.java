@@ -1,16 +1,14 @@
 package constants;
 
-public enum Unit {
+public enum CountryCode {
 
-    KM("km"),
-    MLS("mls"),
-    HRS("hrs"),
-    OTHER("other");
+    DE("DE"),
+    FR("fr");
 
-String unit;
+String code;
 
-    Unit(String unit){
-        this.unit=unit;
+    CountryCode(String code){
+        this.code=code;
     }
 
 }
