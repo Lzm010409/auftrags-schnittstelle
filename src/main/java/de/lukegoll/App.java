@@ -2,6 +2,7 @@ package de.lukegoll;
 
 import constants.ContactType;
 import constants.DocumentType;
+import textextractor.AdminDataExtractor;
 import xmlEntities.Case;
 import xmlEntities.ClaimnetDistribution;
 import xmlEntities.Document;
@@ -11,8 +12,10 @@ import xmlEntities.caseData.participantData.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +43,9 @@ public class App
             vehicle.setModel("Golf");
             vehicle.setPlate_number("KR-G2001");
 
-            Admin_Data admin_data = new Admin_Data();
-            admin_data.setCase_comment("TEST");
+            Admin_Data admin_data = new AdminDataExtractor().extractText(new File("/Users/lukegollenstede/Desktop/dynarex_order_assignment/TestDateien/text-2.pdf"));
+/*
+* Offensichtlich funktioniert die dateTime Annotation in der Umwandlung zu XMl nicht richtig. Fix folgt später*/
 
             List<Participant> participantList= new ArrayList<Participant>();
             Participant p1 = new Participant();
@@ -109,6 +113,8 @@ public class App
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

@@ -2,17 +2,19 @@ package xmlEntities.caseData;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import java.time.LocalDateTime;
 import java.util.Date;
 @XmlRootElement
 public class Admin_Data {
 
     private String case_no;
-    private Date claim_date;
+    private LocalDateTime claim_date;
     private boolean claim_date_usertime;
 
     private String claim_location;
     private String claim_number;
-    private Date case_date_of_order;
+    private LocalDateTime case_date_of_order;
     private boolean case_date_of_order_usertime;
     private String case_ordered_by;
     private String policy_number;
@@ -26,7 +28,7 @@ public class Admin_Data {
 
     }
 
-    public Admin_Data(String case_no, Date claim_date, boolean claim_date_usertime, String claim_location, String claim_number, Date case_date_of_order, boolean case_date_of_order_usertime, String case_ordered_by, String policy_number, double deductible_partial, double deductible_comprehensive, String claim_type, String claim_type_id, String case_comment) {
+    public Admin_Data(String case_no, LocalDateTime claim_date, boolean claim_date_usertime, String claim_location, String claim_number, LocalDateTime case_date_of_order, boolean case_date_of_order_usertime, String case_ordered_by, String policy_number, double deductible_partial, double deductible_comprehensive, String claim_type, String claim_type_id, String case_comment) {
         this.case_no = case_no;
         this.claim_date = claim_date;
         this.claim_date_usertime = claim_date_usertime;
@@ -51,11 +53,12 @@ public class Admin_Data {
         this.case_no = case_no;
     }
     @XmlElement
-    public Date getClaim_date() {
+    @XmlSchemaType(name = "dateTime")
+    public LocalDateTime getClaim_date() {
         return claim_date;
     }
 
-    public void setClaim_date(Date claim_date) {
+    public void setClaim_date(LocalDateTime claim_date) {
         this.claim_date = claim_date;
     }
     @XmlElement
@@ -83,11 +86,12 @@ public class Admin_Data {
         this.claim_number = claim_number;
     }
     @XmlElement
-    public Date getCase_date_of_order() {
+    @XmlSchemaType(name = "dateTime")
+    public LocalDateTime getCase_date_of_order() {
         return case_date_of_order;
     }
 
-    public void setCase_date_of_order(Date case_date_of_order) {
+    public void setCase_date_of_order(LocalDateTime case_date_of_order) {
         this.case_date_of_order = case_date_of_order;
     }
     @XmlElement
@@ -154,4 +158,6 @@ public class Admin_Data {
     public void setCase_comment(String case_comment) {
         this.case_comment = case_comment;
     }
+
+
 }
