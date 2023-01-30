@@ -1,8 +1,12 @@
 package xmlEntities.caseData;
 
+import xmlEntities.adapter.LocalDateAdapter;
+import xmlEntities.adapter.LocalDateTimeAdapter;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDateTime;
 import java.util.Date;
 @XmlRootElement
@@ -53,7 +57,7 @@ public class Admin_Data {
         this.case_no = case_no;
     }
     @XmlElement
-    @XmlSchemaType(name = "dateTime")
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     public LocalDateTime getClaim_date() {
         return claim_date;
     }
@@ -86,7 +90,7 @@ public class Admin_Data {
         this.claim_number = claim_number;
     }
     @XmlElement
-    @XmlSchemaType(name = "dateTime")
+    @XmlJavaTypeAdapter(value = LocalDateTimeAdapter.class)
     public LocalDateTime getCase_date_of_order() {
         return case_date_of_order;
     }

@@ -3,6 +3,8 @@ package de.lukegoll;
 import constants.ContactType;
 import constants.DocumentType;
 import textextractor.AdminDataExtractor;
+import textextractor.ParticipantsDataExtractor;
+import textextractor.VehicleDataExtractor;
 import xmlEntities.Case;
 import xmlEntities.ClaimnetDistribution;
 import xmlEntities.Document;
@@ -28,6 +30,7 @@ public class App
 {
     public static void main( String[] args )
     {
+        String filename="/Users/lukegollenstede/Desktop/dynarex_order_assignment/TestDateien/text-2.pdf";
 
         JAXBContext contextObj = null;
         try {
@@ -38,55 +41,18 @@ public class App
             Document document = new Document();
             Case c1 = new Case();
 
-            Vehicle vehicle = new Vehicle();
-            vehicle.setManufaturer("VW");
-            vehicle.setModel("Golf");
-            vehicle.setPlate_number("KR-G2001");
+           Vehicle vehicle = new VehicleDataExtractor().extractText(new File(filename));
 
-            Admin_Data admin_data = new AdminDataExtractor().extractText(new File("/Users/lukegollenstede/Desktop/dynarex_order_assignment/TestDateien/text-2.pdf"));
+            Admin_Data admin_data = new AdminDataExtractor().extractText(new File(filename));
 /*
 * Offensichtlich funktioniert die dateTime Annotation in der Umwandlung zu XMl nicht richtig. Fix folgt später*/
 
-            List<Participant> participantList= new ArrayList<Participant>();
-            Participant p1 = new Participant();
-            p1.setName1("Luke Gollenstede");
-            p1.setGender("Male");
-            Address address = new Address();
-            address.setStreet("Achterstraße");
-            address.setCity("28359");
-            address.setCity("Bremen");
-            address.setNumber("15");
 
-            Contact contact = new Contact(ContactType.MOBILE,"+4915751405748");
-            List<Contact>contacts = new ArrayList<Contact>();
-            contacts.add(contact);
-            Contacts contacts1 = new Contacts();
-            contacts1.setContact(contacts);
-            address.setContacts(contacts1);
-            p1.setAddress(address);
 
-            participantList.add(p1);
 
-            Attachment attachment = new Attachment();
-            attachment.setBase64("TEHFDHGGJHGHJGKJFFH;HK");
-            attachment.setFilename("TESTFILE");
-            attachment.setFile_extension(".pdf");
-            attachment.setDocument_type(DocumentType.MAIN_DOCUMENT);
 
-            Attachment attachment1 = new Attachment();
-            attachment1.setBase64("TEHFDHGGJHGHJGKJFFH;HK");
-            attachment1.setFilename("TESTFILE");
-            attachment1.setFile_extension(".pdf");
-            attachment1.setDocument_type(DocumentType.MAIN_DOCUMENT);
-
-            List<Attachment> attachments = new ArrayList<>();
-            attachments.add(attachment1);
-            attachments.add(attachment);
-
-            Attachments attachments1 = new Attachments();
-            attachments1.setAttachment(attachments);
             Participants participants = new Participants();
-            participants.setParticipant(participantList);
+            participants.setParticipant(new ParticipantsDataExtractor().extractText(new File(filename)));
             ClaimnetInfo claimnetInfo = new ClaimnetInfo();
             claimnetInfo.setComment("TESTEDFG");
             claimnetInfo.setOrder_type("Gutachten");
@@ -97,7 +63,6 @@ public class App
             claimnetDistribution.setSender_id("LukeGollenstede");
 
             c1.setAdmin_data(admin_data);
-            c1.setAttachments(attachments1);
             c1.setParticipants(participants);
             c1.setVehicle(vehicle);
             c1.setClaimnetInfo(claimnetInfo);

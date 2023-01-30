@@ -157,12 +157,5 @@ public class AdminDataExtractor implements TextExtractor {
     }
 
 
-    public static void main(String[] args) {
-        AdminDataExtractor invoiceTextExtractor = new AdminDataExtractor();
-        try {
-            invoiceTextExtractor.extractText(new File("/Users/lukegollenstede/Desktop/dynarex_order_assignment/TestDateien/text-2.pdf"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }
