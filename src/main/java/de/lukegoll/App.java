@@ -30,7 +30,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        String filename="/Users/lukegollenstede/Desktop/dynarex_order_assignment/TestDateien/text-2.pdf";
+        String filename="/Users/lukegollenstede/Desktop/dynarex_order_assignment/TestDateien/test-3.pdf";
 
         JAXBContext contextObj = null;
         try {

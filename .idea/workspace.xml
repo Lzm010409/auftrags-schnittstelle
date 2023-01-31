@@ -5,17 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa76cb7-ef0f-469e-b9b1-a6ce90c6235b" name="Changes" comment="ParticipantsDataExtractor und VehicleDataExtractor wurden ergänzt">
-      <change afterPath="$PROJECT_DIR$/src/main/java/constants/ParticipantType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/textextractor/VehicleDataExtractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xmlEntities/adapter/LocalDateAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/xmlEntities/adapter/LocalDateTimeAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/Login.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/MailEmpfaenger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/ServerData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/constants/Unit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/constants/Unit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/lukegoll/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/lukegoll/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/textextractor/AdminDataExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/textextractor/AdminDataExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/textextractor/coordinates/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/textextractor/coordinates/Coordinates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/xmlEntities/caseData/Admin_Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/xmlEntities/caseData/Admin_Data.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +64,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="mailservice.empfänger" />
+      <recent name="xmlEntities.adapter" />
       <recent name="constants" />
       <recent name="textextractor" />
     </key>
@@ -145,7 +144,8 @@
       <workItem from="1674140646110" duration="2865000" />
       <workItem from="1675000249026" duration="4270000" />
       <workItem from="1675004748750" duration="1785000" />
-      <workItem from="1675076430070" duration="7326000" />
+      <workItem from="1675076430070" duration="8333000" />
+      <workItem from="1675153248717" duration="5211000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1674139616203</created>
@@ -168,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675005937753</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ParticipantsDataExtractor und VehicleDataExtractor wurden ergänzt">
+      <created>1675083883370</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1675083883370</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,26 +203,26 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/textextractor/AdminDataExtractor.java</url>
-          <line>91</line>
-          <option name="timeStamp" value="5" />
+          <url>file://$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/textextractor/AdminDataExtractor.java</url>
-          <line>55</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/src/main/java/de/lukegoll/App.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java</url>
-          <line>58</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java</url>
-          <line>87</line>
-          <option name="timeStamp" value="14" />
+          <line>48</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="chars[1]" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
