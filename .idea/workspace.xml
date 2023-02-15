@@ -4,14 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1fa76cb7-ef0f-469e-b9b1-a6ce90c6235b" name="Changes" comment="ParticipantsDataExtractor und VehicleDataExtractor wurden ergänzt">
-      <change afterPath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/Login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/MailEmpfaenger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/ServerData.java" afterDir="false" />
+    <list default="true" id="1fa76cb7-ef0f-469e-b9b1-a6ce90c6235b" name="Changes" comment="ParticipantsDataExtractor wurde angepasst. Coordinates wurde angepasst. MailEmpfaenger und Login wurden ergänzt. Weitere bearbeitung dieser beiden Klassen folgt.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/auftrag/entities/Auftrag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/auftrag/entities/Fahrzeug.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/auftrag/entities/persons/Kunde.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/auftrag/entities/persons/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/auftrag/entities/persons/Rechtsanwalt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/auftrag/entities/persons/Versicherung.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/constants/DriveTrain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/constants/EnviromentRating.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/constants/Fuel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/constants/PersonType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/constants/VehicleColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/constants/VehicleRating.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/ReceiveMail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/SendMail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/textextractor/AuftragDataExtractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/lukegoll/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/lukegoll/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/Login.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mailservice/empfänger/MailEmpfaenger.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/textextractor/AdminDataExtractor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/textextractor/PersonDataExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/textextractor/VehicleDataExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/textextractor/VehicleDataExtractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/textextractor/coordinates/Coordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/textextractor/coordinates/Coordinates.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +37,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="package-info" />
         <option value="Enum" />
         <option value="Class" />
       </list>
@@ -64,26 +80,14 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="auftrag.entities.persons" />
       <recent name="mailservice.empfänger" />
       <recent name="xmlEntities.adapter" />
       <recent name="constants" />
       <recent name="textextractor" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
-    <configuration name="AdminDataExtractor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="textextractor.AdminDataExtractor" />
-      <module name="auftrags-schnittstelle" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="textextractor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.AuftragDataExtractor">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="de.lukegoll.App" />
       <module name="auftrags-schnittstelle" />
@@ -97,12 +101,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ParticipantsDataExtractor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="textextractor.ParticipantsDataExtractor" />
+    <configuration name="AuftragDataExtractor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="textextractor.AuftragDataExtractor" />
       <module name="auftrags-schnittstelle" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="textextractor.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonDataExtractor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="textextractor.PersonDataExtractor" />
+      <module name="auftrags-schnittstelle" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="textextractor.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReceiveMail" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="mailservice.empfänger.ReceiveMail" />
+      <module name="auftrags-schnittstelle" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mailservice.empfänger.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -125,10 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
-        <item itemvalue="Application.ParticipantsDataExtractor" />
+        <item itemvalue="Application.AuftragDataExtractor" />
         <item itemvalue="Application.VehicleDataExtractor" />
-        <item itemvalue="Application.AdminDataExtractor" />
+        <item itemvalue="Application.PersonDataExtractor" />
+        <item itemvalue="Application.ReceiveMail" />
+        <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
   </component>
@@ -145,7 +176,10 @@
       <workItem from="1675000249026" duration="4270000" />
       <workItem from="1675004748750" duration="1785000" />
       <workItem from="1675076430070" duration="8333000" />
-      <workItem from="1675153248717" duration="5211000" />
+      <workItem from="1675153248717" duration="5560000" />
+      <workItem from="1675184754712" duration="708000" />
+      <workItem from="1675444382671" duration="18000" />
+      <workItem from="1676453452115" duration="7493000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1674139616203</created>
@@ -175,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675083883370</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ParticipantsDataExtractor wurde angepasst. Coordinates wurde angepasst. MailEmpfaenger und Login wurden ergänzt. Weitere bearbeitung dieser beiden Klassen folgt.">
+      <created>1675174105005</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1675174105005</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,31 +238,28 @@
     <MESSAGE value="Anpassung damit Entities korrekt umgewandelt werden" />
     <MESSAGE value="Implementierung des Admin_data Text extractors, welcher den Text aus dem Aufnahmebogen extrahiert und dann ein Admin_Data Objekt zurück gibt." />
     <MESSAGE value="ParticipantsDataExtractor und VehicleDataExtractor wurden ergänzt" />
-    <option name="LAST_COMMIT_MESSAGE" value="ParticipantsDataExtractor und VehicleDataExtractor wurden ergänzt" />
+    <MESSAGE value="ParticipantsDataExtractor wurde angepasst. Coordinates wurde angepasst. MailEmpfaenger und Login wurden ergänzt. Weitere bearbeitung dieser beiden Klassen folgt." />
+    <option name="LAST_COMMIT_MESSAGE" value="ParticipantsDataExtractor wurde angepasst. Coordinates wurde angepasst. MailEmpfaenger und Login wurden ergänzt. Weitere bearbeitung dieser beiden Klassen folgt." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="15" />
+          <url>file://$PROJECT_DIR$/src/main/java/textextractor/VehicleDataExtractor.java</url>
+          <line>136</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/de/lukegoll/App.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/textextractor/ParticipantsDataExtractor.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="17" />
+          <url>file://$PROJECT_DIR$/src/main/java/textextractor/AuftragDataExtractor.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="chars[1]" />
+        <watch expression="auftrag.fahrzeug.reifenHersteller" />
+        <watch expression="auftrag.auftragsBesonderheiten" />
       </configuration>
     </watches-manager>
   </component>

@@ -1,5 +1,6 @@
 package textextractor;
 
+import auftrag.entities.Fahrzeug;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -26,7 +27,7 @@ public class VehicleDataExtractor implements TextExtractor {
     private final Logger logger = Logger.getLogger(VehicleDataExtractor.class);
 
     @Override
-    public Vehicle extractText(File file) throws IOException {
+    public Fahrzeug extractText(File file) throws IOException {
         try {
             Rectangle rect;
             TextRegionEventFilter regionFilter;
@@ -34,7 +35,7 @@ public class VehicleDataExtractor implements TextExtractor {
             String str;
             StringBuilder builder = new StringBuilder();
             PdfDocument pdfDoc = new PdfDocument(new PdfReader(file));
-            Vehicle vehicle = new Vehicle();
+            Fahrzeug vehicle = new Fahrzeug();
 
             logger.log(Logger.Level.INFO, "Auslesen des Textes aus: " + file.getAbsolutePath());
 
@@ -42,48 +43,96 @@ public class VehicleDataExtractor implements TextExtractor {
             regionFilter = new TextRegionEventFilter(rect);
             strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
             str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            vehicle.setPlate_number(formatLicencePlate(str));
+            vehicle.setAmtlKennzeichen(formatLicencePlate(str));
             rect = new Rectangle(Coordinates.FHERSTELLER.getX(), Coordinates.FHERSTELLER.getY(), Coordinates.FHERSTELLER.getWidth(), Coordinates.FHERSTELLER.getHeight());
             regionFilter = new TextRegionEventFilter(rect);
             strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
             str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            vehicle.setManufaturer(str);
+            vehicle.setHersteller(str);
+            rect = new Rectangle(Coordinates.FART.getX(), Coordinates.FART.getY(), Coordinates.FART.getWidth(), Coordinates.FART.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setFahrzeugArt(str);
             rect = new Rectangle(Coordinates.FTYP.getX(), Coordinates.FTYP.getY(), Coordinates.FTYP.getWidth(), Coordinates.FTYP.getHeight());
             regionFilter = new TextRegionEventFilter(rect);
             strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
             str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            vehicle.setModel(str);
-            rect = new Rectangle(Coordinates.KENNZEICHENUG.getX(), Coordinates.KENNZEICHENUG.getY(), Coordinates.KENNZEICHENUG.getWidth(), Coordinates.KENNZEICHENUG.getHeight());
-            regionFilter = new TextRegionEventFilter(rect);
-            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
-            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            vehicle.setPlate_number_opponent(formatLicencePlate(str));
+            vehicle.setTyp(str);
             rect = new Rectangle(Coordinates.FHSN.getX(), Coordinates.FHSN.getY(), Coordinates.FHSN.getWidth(), Coordinates.FHSN.getHeight());
             regionFilter = new TextRegionEventFilter(rect);
             strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
             str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            vehicle.setKba_numbers(formatHsnTsn(str));
+            vehicle.setHsntsn(formatHsnTsn(str));
             rect = new Rectangle(Coordinates.FERSTZUL.getX(), Coordinates.FERSTZUL.getY(), Coordinates.FERSTZUL.getWidth(), Coordinates.FERSTZUL.getHeight());
             regionFilter = new TextRegionEventFilter(rect);
             strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
             str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            vehicle.setFirst_registrations(formatDate(str));
-            rect = new Rectangle(Coordinates.FIN.getX(), Coordinates.FIN.getY(), Coordinates.FIN.getWidth(), Coordinates.FIN.getHeight());
+            vehicle.setErstZulassung(str);
+            rect = new Rectangle(Coordinates.FLETZTZUL.getX(), Coordinates.FLETZTZUL.getY(), Coordinates.FLETZTZUL.getWidth(), Coordinates.FLETZTZUL.getHeight());
             regionFilter = new TextRegionEventFilter(rect);
             strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
             str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            vehicle.setVin(str);
+            vehicle.setLetztZulassung(str);
+            rect = new Rectangle(Coordinates.FLEISTUNG.getX(), Coordinates.FLEISTUNG.getY(), Coordinates.FLEISTUNG.getWidth(), Coordinates.FLEISTUNG.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setLeistung(Integer.valueOf(str));
+            rect = new Rectangle(Coordinates.FHUBRAUM.getX(), Coordinates.FHUBRAUM.getY(), Coordinates.FHUBRAUM.getWidth(), Coordinates.FHUBRAUM.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setHubraum(Integer.valueOf(str));
+            rect = new Rectangle(Coordinates.FHU.getX(), Coordinates.FHU.getY(), Coordinates.FHU.getWidth(), Coordinates.FHU.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setHu(str);
             rect = new Rectangle(Coordinates.FKILOMETER.getX(), Coordinates.FKILOMETER.getY(), Coordinates.FKILOMETER.getWidth(), Coordinates.FKILOMETER.getHeight());
             regionFilter = new TextRegionEventFilter(rect);
             strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
             str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            vehicle.setMileage_read(Long.parseLong(formatMileage(str)));
-            vehicle.setMileage_read_unit_code(Unit.KM);
+            vehicle.setKmStand(Integer.valueOf(str));
+           /* rect = new Rectangle(Coordinates.FFARBE.getX(), Coordinates.FFARBE.getY(), Coordinates.FFARBE.getWidth(), Coordinates.FFARBE.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setFarbe(str);*/
+            rect = new Rectangle(Coordinates.FVBEREIFUNG.getX(), Coordinates.FVBEREIFUNG.getY(), Coordinates.FVBEREIFUNG.getWidth(), Coordinates.FVBEREIFUNG.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setReifenVorne(str);
+            rect = new Rectangle(Coordinates.FHBEREIFUNG.getX(), Coordinates.FHBEREIFUNG.getY(), Coordinates.FHBEREIFUNG.getWidth(), Coordinates.FHBEREIFUNG.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setReifenHinten(str);
+            rect = new Rectangle(Coordinates.FREIFENHERSTELLER.getX(), Coordinates.FREIFENHERSTELLER.getY(), Coordinates.FREIFENHERSTELLER.getWidth(), Coordinates.FREIFENHERSTELLER.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setReifenHersteller(str);
+            rect = new Rectangle(Coordinates.NBEHVORSCHADEN.getX(), Coordinates.NBEHVORSCHADEN.getY(), Coordinates.NBEHVORSCHADEN.getWidth(), Coordinates.NBEHVORSCHADEN.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setNichtBehSchäden(str);
+            rect = new Rectangle(Coordinates.BEHVORSCHADEN.getX(), Coordinates.BEHVORSCHADEN.getY(), Coordinates.BEHVORSCHADEN.getWidth(), Coordinates.BEHVORSCHADEN.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setBehSchäden(str);
+            rect = new Rectangle(Coordinates.FPROFILTIEFE.getX(), Coordinates.FPROFILTIEFE.getY(), Coordinates.FPROFILTIEFE.getWidth(), Coordinates.FPROFILTIEFE.getHeight());
+            regionFilter = new TextRegionEventFilter(rect);
+            strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+            str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
+            vehicle.setProfilTiefe(str);
 
-
-            logger.log(Logger.Level.INFO, String.format("Auslesen der AdminData erfolgreich! Folgende Dinge wurden erfasst: Kennzeichen: %s, Fahrzeughersteller: " +
-                            "%s, Fahrezugtyp: %s, Kennzeichen-UG: %s, FIN: %s, HSN/TSN: %s, Erstzulassung: %s, Laufleistung: %s %s ", vehicle.getPlate_number(), vehicle.getManufaturer()
-                    , vehicle.getModel(), vehicle.getPlate_number_opponent(),vehicle.getVin(), vehicle.getKba_numbers(), vehicle.getFirst_registrations(), vehicle.getMileage_read(), vehicle.getMileage_read_unit_code().getUnit()));
+            /**
+             * Hier müssen unebdingt noch alle Daten die Enums enthalten ergänzt werden. z.B.: Karosserie, Allgemeinzustand, etc.
+             */
 
             return vehicle;
         } catch (Exception e) {
@@ -97,26 +146,34 @@ public class VehicleDataExtractor implements TextExtractor {
         char[] chars = plate.toCharArray();
         boolean hitMinus = false;
         boolean hitFirstDigit = false;
+        boolean startCodon = false;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < chars.length; i++) {
-            if (chars[i] != '-' && hitMinus == false) {
-                builder.append(chars[i]);
-            }
-            if (chars[i] == '-') {
-                hitMinus = true;
-                builder.append("-");
-            }
-            if (hitMinus == true && Character.isLetter(chars[i])) {
-                builder.append(chars[i]);
-            }
-            if (hitFirstDigit == false && Character.isDigit(chars[i])) {
-                builder.append("-");
-                builder.append(chars[i]);
-                hitFirstDigit = true;
-                continue;
-            }
-            if (Character.isDigit(chars[i]) && hitFirstDigit == true) {
-                builder.append(chars[i]);
+            if (startCodon == true) {
+                if (chars[i] != '-' && hitMinus == false) {
+                    builder.append(chars[i]);
+                }
+                if (chars[i] == '-') {
+                    hitMinus = true;
+                    builder.append("-");
+                }
+                if (hitMinus == true && Character.isLetter(chars[i])) {
+                    builder.append(chars[i]);
+                }
+                if (hitFirstDigit == false && Character.isDigit(chars[i])) {
+                    builder.append("-");
+                    builder.append(chars[i]);
+                    hitFirstDigit = true;
+                    continue;
+                }
+                if (Character.isDigit(chars[i]) && hitFirstDigit == true) {
+                    builder.append(chars[i]);
+                }
+            } else {
+                if (Character.isUpperCase(chars[i]) && Character.isUpperCase(chars[i + 1]) && chars[i + 2] == '-') {
+                    startCodon = true;
+                    builder.append(chars[i]);
+                }
             }
         }
         return builder.toString();
@@ -158,6 +215,4 @@ public class VehicleDataExtractor implements TextExtractor {
         }
         return builder.toString();
     }
-
-
 }

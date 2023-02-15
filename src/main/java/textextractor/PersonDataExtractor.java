@@ -1,5 +1,6 @@
 package textextractor;
 
+import auftrag.entities.persons.Kunde;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
@@ -13,7 +14,6 @@ import constants.CountryCode;
 import constants.ParticipantType;
 import org.jboss.logging.Logger;
 import textextractor.coordinates.Coordinates;
-import xmlEntities.caseData.Admin_Data;
 import xmlEntities.caseData.participantData.*;
 
 import java.io.File;
@@ -23,14 +23,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ParticipantsDataExtractor implements TextExtractor {
-    private final Logger logger = Logger.getLogger(ParticipantsDataExtractor.class);
+public class PersonDataExtractor implements TextExtractor {
+    private final Logger logger = Logger.getLogger(PersonDataExtractor.class);
     private Participant testLawyer = new Participant();
 
 
     @Override
-    public List<Participant> extractText(File file) throws IOException {
-        intializeLTestLawyer();
+    public Kunde extractText(File file) throws IOException {
         try {
             Rectangle rect;
             TextRegionEventFilter regionFilter;
@@ -38,38 +37,27 @@ public class ParticipantsDataExtractor implements TextExtractor {
             String str;
             StringBuilder builder = new StringBuilder();
             PdfDocument pdfDoc = new PdfDocument(new PdfReader(file));
-            List<Participant> participantList = new ArrayList<>();
 
             rect = new Rectangle(Coordinates.AS.getX(), Coordinates.AS.getY(), Coordinates.AS.getWidth(), Coordinates.AS.getHeight());
             regionFilter = new TextRegionEventFilter(rect);
             strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
             str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-            participantList.add(buildCustomer(str));
+            Kunde kunde = buildCustomer(str);
 
-            if (participantList.size() == 1) {
-                addGender(participantList.get(0), file);
-                addContacts(participantList.get(0), file);
-            }
-
-            participantList.add(testLawyer);
-
-
-            for (int i = 0; i < participantList.size(); i++) {
-                logger.log(Logger.Level.INFO, String.format("Auslesen der ParticipantData erfolgreich! Folgende Dinge wurden erfasst: Gender: %s, Name: " +
-                                "%s, Adresse: %s %s, %s %s", participantList.get(i).getGender(), participantList.get(i).getName1(),
-                        participantList.get(i).getAddress().getStreet(), participantList.get(i).getAddress().getNumber(),
-                        participantList.get(i).getAddress().getPostalcode(), participantList.get(i).getAddress().getCity()));
+            if (kunde != null) {
+                addGender(kunde, file);
+                addContacts(kunde, file);
             }
 
 
-            return participantList;
+            return kunde;
         } catch (Exception e) {
             logger.log(Logger.Level.ERROR, "Auslesen nicht erfolgreich, folgender Fehler ist aufgetreten: " + e.getMessage());
             return null;
         }
     }
 
-    private void addGender(Participant participant, File file) throws IOException {
+    private void addGender(Kunde kunde, File file) throws IOException {
         Rectangle rect;
         TextRegionEventFilter regionFilter;
         ITextExtractionStrategy strategy;
@@ -79,12 +67,12 @@ public class ParticipantsDataExtractor implements TextExtractor {
         regionFilter = new TextRegionEventFilter(rect);
         strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
         str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-        participant.setGender(str);
+        kunde.setAnrede(str);
     }
 
-    private Participant buildCustomer(String str) {
+    private Kunde buildCustomer(String str) {
         List<String> list = new LinkedList<>(Arrays.asList(str.split("\n")));
-        Participant participant = new Participant();
+        Kunde participant = new Kunde();
         Address address = new Address();
 
         for (int i = 0; i < list.size(); i++) {
@@ -107,13 +95,11 @@ public class ParticipantsDataExtractor implements TextExtractor {
                 //list.remove(i);
                 continue;
             } else {
-                participant.setName1(list.get(i));
+                participant.setvName(list.get(i));
             }
 
 
         }
-        String type = ParticipantType.CL.toString() + "," + ParticipantType.CU.toString() + "," + ParticipantType.VO.toString();
-        participant.setType(type);
         participant.setAddress(address);
 
 
@@ -138,82 +124,56 @@ public class ParticipantsDataExtractor implements TextExtractor {
             if (digitCounter < 5 && letterCounter < 2) {
                 isAddress = true;
             }
-            digitCounter=0;
-            letterCounter=0;
+            digitCounter = 0;
+            letterCounter = 0;
         }
         return isAddress;
     }
 
-    private void intializeLTestLawyer() {
-        Participant participant = new Participant();
-        Address address = new Address();
-        Contacts contacts = new Contacts();
-        Contact tel = new Contact();
-        Contact mail = new Contact();
 
-        participant.setName1("Test Rechtsanwalt");
-        address.setStreet("Musteralle 5");
-        address.setCity("Teststadt");
-        address.setPostalcode("12345");
-        address.setNumber("2");
-
-        tel.setValue("1234567657");
-        tel.setName(ContactType.PHONE);
-        mail.setValue("test@test.de");
-        mail.setName(ContactType.MAIL);
-
-        List<Contact> list = new ArrayList<>();
-        list.add(tel);
-        list.add(mail);
-
-        contacts.setContact(list);
-
-        address.setContacts(contacts);
-        participant.setType("LA");
-        participant.setAddress(address);
-
-        testLawyer = participant;
-
-    }
-
-    private void addContacts(Participant participant, File file) throws IOException {
+    private void addContacts(Kunde kunde, File file) throws IOException {
         Rectangle rect;
         TextRegionEventFilter regionFilter;
         ITextExtractionStrategy strategy;
         String str;
         PdfDocument pdfDoc = new PdfDocument(new PdfReader(file));
         Contacts contacts = new Contacts();
-        Contact tel = new Contact();
-        Contact mail = new Contact();
+        String tel = "";
+        String mail = "";
         rect = new Rectangle(Coordinates.TEL.getX(), Coordinates.TEL.getY(), Coordinates.TEL.getWidth(), Coordinates.TEL.getHeight());
         regionFilter = new TextRegionEventFilter(rect);
         strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
         str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-        tel.setName(ContactType.PHONE);
-        tel.setValue(str);
+        tel = str;
 
         rect = new Rectangle(Coordinates.MAIL.getX(), Coordinates.MAIL.getY(), Coordinates.MAIL.getWidth(), Coordinates.MAIL.getHeight());
         regionFilter = new TextRegionEventFilter(rect);
         strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
         str = PdfTextExtractor.getTextFromPage(pdfDoc.getPage(1), strategy);
-        mail.setName(ContactType.MAIL);
-        mail.setValue(str);
+        mail = str;
 
-        List<Contact> list = new LinkedList<>();
-        list.add(tel);
-        list.add(mail);
 
-        contacts.setContact(list);
-
-        participant.getAddress().setContacts(contacts);
+        kunde.setTel(tel);
+        kunde.setMail(mail);
     }
 
     private boolean isPlz(String string) {
         boolean isPlz = false;
+        int counter = 0;
         List<String> tempList = new LinkedList<>(Arrays.asList(string.split(" ")));
         for (int i = 0; i < tempList.size(); i++) {
-            if (tempList.get(i).length() == 5) {
+            char[] chars = tempList.get(i).toCharArray();
+            for (int j = 0; j < chars.length; j++) {
+                if (Character.isDigit(chars[i])) {
+                    counter += 1;
+                }
+                if (Character.isLetter(chars[i])) {
+                    break;
+                }
+            }
+            if (counter == 5) {
                 isPlz = true;
+                break;
             }
         }
         return isPlz;
@@ -226,4 +186,6 @@ public class ParticipantsDataExtractor implements TextExtractor {
     public void setTestLawyer(Participant testLawyer) {
         this.testLawyer = testLawyer;
     }
+
+
 }
